@@ -9,6 +9,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class TaskController extends BaseController
 {
     public function submit() {
-        return 'hello';
+        return view('submitTask');
     }
 }
