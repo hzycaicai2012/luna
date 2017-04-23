@@ -18,3 +18,7 @@ Route::get('/task/submit', [
     'as' => 'tasksubmit',
     'uses' => 'TaskController@submit'
 ]);
+Route::any('/wechat', [
+    'as' => 'wechat',
+    'uses' => 'WechatController@serve'
+]);

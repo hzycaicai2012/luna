@@ -28,6 +28,7 @@
     24 => 'App\\Providers\\AuthServiceProvider',
     25 => 'App\\Providers\\EventServiceProvider',
     26 => 'App\\Providers\\RouteServiceProvider',
+    27 => 'Overtrue\\LaravelWechat\\ServiceProvider',
   ),
   'eager' => 
   array (
@@ -138,6 +139,8 @@
     'validator' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
+    'wechat' => 'Overtrue\\LaravelWechat\\ServiceProvider',
+    'EasyWeChat\\Foundation\\Application' => 'Overtrue\\LaravelWechat\\ServiceProvider',
   ),
   'when' => 
   array (
@@ -178,6 +181,9 @@
     array (
     ),
     'Laravel\\Tinker\\TinkerServiceProvider' => 
+    array (
+    ),
+    'Overtrue\\LaravelWechat\\ServiceProvider' => 
     array (
     ),
   ),
