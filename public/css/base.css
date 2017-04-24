@@ -15,12 +15,12 @@ body {
 }
 
 .banner-title {
-    color: #fff;
-    font-size: 24px;
     position: relative;
-    width: 120px;
-    top: 30px;
+    font-size: 26px;
+    color: #fff;
+    width: 130px;
     margin: 0 auto;
+    top: 30px;
 }
 
 .footer-btns .weui-btn {

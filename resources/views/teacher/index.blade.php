@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="banner">
-        <div class="">一起蹭課吧</div>
+        <div class="banner-title">一起蹭課吧</div>
     </div>
     <article class="weui-article">
         <section>
