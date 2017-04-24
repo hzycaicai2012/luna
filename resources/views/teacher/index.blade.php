@@ -4,7 +4,7 @@
     <div class="banner">
         <div class="">一起蹭課吧</div>
     </div>
-    <article class="weui_article">
+    <article class="weui-article">
         <section>
             <h2 class="title">我们是谁</h2>
             <section>
@@ -21,6 +21,6 @@
     <div>
     </div>
     <div class="footer-btns">
-        <a href="#" class="weui_btn weui_btn_primary">按钮</a>
+        <a href="/teacher/submit" class="weui-btn weui-btn_primary">我要讲课</a>
     </div>
 @endsection
