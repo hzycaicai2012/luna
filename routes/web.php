@@ -15,11 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/task/submit', [
-    'as' => 'tasksubmit',
-    'uses' => 'TaskController@submit'
+Route::get('/teacher/index', [
+    'as' => 'teacherIndex',
+    'uses' => 'TeacherController@index'
 ]);
-Route::any('/wechat', [
-    'as' => 'wechat',
+
+Route::any('/wechat/serve', [
+    'as' => 'wechatServe',
     'uses' => 'WechatController@serve'
+]);
+
+Route::any('/wechat/oauth_callback', [
+    'as' => 'wechatCallback',
+    'uses' => 'WechatController@oAuthCallback'
 ]);
