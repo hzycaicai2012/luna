@@ -15,10 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/teacher/index', [
-    'as' => 'teacherIndex',
-    'uses' => 'TeacherController@index'
-]);
+
+Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
+    Route::get('/teacher/index', [
+        'as' => 'teacherIndex',
+        'uses' => 'TeacherController@index'
+    ]);
+});
 
 Route::any('/wechat/serve', [
     'as' => 'wechatServe',

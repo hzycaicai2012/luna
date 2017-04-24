@@ -1,8 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
-
 use EasyWeChat\Foundation\Application;
 
 class WechatController extends Controller
@@ -43,11 +41,12 @@ class WechatController extends Controller
         return $wechat->server->serve();
     }
 
-    public function oAuthCallback(Application $wechat) {
+    public function oAuthCallback() {
+	$wechat = app('wechat');
         $oauth = $wechat->oauth;
         $user = $oauth->user();
-        $_SESSION['wechat_user'] = $user->toArray();
-        $targetUrl = empty($_SESSION['target_url']) ? '/' : $_SESSION['target_url'];
+        // $_SESSION['wechat_user'] = $user->toArray();
+        $targetUrl = '/teacher/index';//empty($_SESSION['target_url']) ? '/' : $_SESSION['target_url'];
         header('location:'. $targetUrl);
     }
 }
