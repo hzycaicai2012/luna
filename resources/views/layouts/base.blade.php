@@ -6,10 +6,8 @@
     <title>StudyTogether</title>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="//res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css">
-</head>
+    <link rel="stylesheet" href="{{ asset('/css/base.css') }}"></head>
 <body>
-<div class="container">
-    @yield('content')
-</div>
+@yield('content')
 </body>
 </html>
