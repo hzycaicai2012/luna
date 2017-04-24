@@ -26,3 +26,24 @@ body {
 .footer-btns .weui-btn {
     margin: 0 15px;
 }
+
+hr {
+    border: none;
+    border-bottom: 1px solid #eee;
+}
+
+.weui-article .grey-content {
+    color: #999;
+}
+
+.weui-article .medium-content {
+    font-size: 15px;
+}
+
+.weui-article .small-content {
+    font-size: 13px;
+}
+
+.weui-article .bold-content {
+    font-weight: 600;
+}

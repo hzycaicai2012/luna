@@ -37,7 +37,7 @@ class CourseController extends Controller
             ->where('st_course.id', $id)
             ->select('st_course.*', 'st_teacher.name as teacher_name',
                 'st_teacher.description as teacher_desc', 'st_teacher.skill')
-            ->get();
+            ->first();
         return view('course.item', ['course' => $course]);
     }
 }
