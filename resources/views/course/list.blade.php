@@ -19,11 +19,13 @@
                 </a>
             @endforeach
         </div>
+        @if ($more <= 0)
         <div class="weui-panel__ft">
-            <a href="/course/list?all=1" class="weui-cell weui-cell_access weui-cell_link">
+            <a href="/course/list?more=1" class="weui-cell weui-cell_access weui-cell_link">
                 <div class="weui-cell__bd">查看更多</div>
                 <span class="weui-cell__ft"></span>
             </a>
         </div>
+        @endif
     </div>
 @endsection
