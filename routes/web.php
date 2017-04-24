@@ -21,6 +21,14 @@ Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
         'as' => 'teacherIndex',
         'uses' => 'TeacherController@index'
     ]);
+    Route::get('/course/list', [
+        'as' => 'courseList',
+        'uses' => 'CourseController@courseList'
+    ]);
+    Route::get('/course/{id}', [
+        'as' => 'courseItem',
+        'uses' => 'CourseController@item'
+    ])->where('id', '[0-9]+');
 });
 
 Route::any('/wechat/serve', [
