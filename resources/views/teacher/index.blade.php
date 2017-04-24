@@ -18,4 +18,9 @@
             </section>
         </section>
     </article>
+    <div>
+    </div>
+    <div class="footer-btns">
+        <a href="#" class="weui_btn weui_btn_primary">按钮</a>
+    </div>
 @endsection
