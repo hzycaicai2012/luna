@@ -18,7 +18,7 @@ class CourseController extends Controller
         $user = $request->session()->get('wechat.oauth_user');
         $course_selection = DB::table('st_course')
             ->join('st_teacher', 'st_course.teacher_id', '=', 'st_teacher.id')
-            ->select('st_course.*', 'st_teacher.name teacher_name',
+            ->select('st_course.*', 'st_teacher.name as teacher_name',
                 'st_teacher.description as teacher_desc', 'st_teacher.skill');
         $courses = array();
         if (intval($all) > 0) {
@@ -34,7 +34,7 @@ class CourseController extends Controller
         $course = DB::table('st_course')
             ->join('st_teacher', 'st_course.teacher_id', '=', 'st_teacher.id')
             ->where('st_course.id', $id)
-            ->select('st_course.*', 'st_teacher.name teacher_name',
+            ->select('st_course.*', 'st_teacher.name as teacher_name',
                 'st_teacher.description as teacher_desc', 'st_teacher.skill')
             ->get();
         return view('course.item', ['course' => $course]);
