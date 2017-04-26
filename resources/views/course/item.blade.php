@@ -17,7 +17,7 @@
             <section>
                 <h3>课程内容：<hr></h3>
                 <p>
-                    {{$course->description}}
+                    {!!$course->description!!}
                 </p>
             </section>
             <section>
