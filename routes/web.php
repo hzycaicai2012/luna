@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 
-Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
+Route::group(['middleware' => ['web', 'wechat.oauth', 'user.service']], function () {
     Route::get('/teacher/index', [
         'as' => 'teacherIndex',
         'uses' => 'TeacherController@index'
@@ -29,20 +29,30 @@ Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
         'as' => 'courseItem',
         'uses' => 'CourseController@item'
     ])->where('id', '[0-9]+');
+
+    Route::any('/wechat/oauth_callback', [
+        'as' => 'wechatCallback',
+        'uses' => 'WechatController@oAuthCallback'
+    ]);
+
+    Route::any('/wxPay/getPayConfig', [
+        'as' => 'wxPayConfig',
+        'uses' => 'WxPayController@getPayConfig'
+    ]);
+
+    Route::any('/wxPay/getPaySign', [
+        'as' => 'wxPaySign',
+        'uses' => 'WxPayController@getPaySign'
+    ]);
+
+    Route::any('/wxPay/payCallback', [
+        'as' => 'wxPayCallback',
+        'uses' => 'WxPayController@payCallback'
+    ]);
 });
 
 Route::any('/wechat/serve', [
     'as' => 'wechatServe',
     'uses' => 'WechatController@serve'
-]);
-
-Route::any('/wechat/oauth_callback', [
-    'as' => 'wechatCallback',
-    'uses' => 'WechatController@oAuthCallback'
-]);
-
-Route::any('/wxPay/getPayConfig', [
-    'as' => 'wxPayConfig',
-    'uses' => 'WxPayController@getPayConfig'
 ]);
 

@@ -61,7 +61,8 @@ return [
      */
      'payment' => [
          'merchant_id'        => env('WECHAT_PAYMENT_MERCHANT_ID', '1452700202'),
-         'key'                => env('WECHAT_PAYMENT_KEY', '912cb64b55cc421d65c24e48805484ab'),
+         'key'                 => env('WECHAT_PAYMENT_KEY', '912cb64b55cc421d65c24e48805484ab'),
+         'notify_url'         => '/wxPay/payCallback',
 //         'cert_path'          => env('WECHAT_PAYMENT_CERT_PATH', 'path/to/your/cert.pem'), // XXX: 绝对路径！！！！
 //         'key_path'           => env('WECHAT_PAYMENT_KEY_PATH', 'path/to/your/key'),      // XXX: 绝对路径！！！！
          // 'device_info'     => env('WECHAT_PAYMENT_DEVICE_INFO', ''),

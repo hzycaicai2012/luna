@@ -1,25 +1,59 @@
 @extends('layouts.base')
 @section('js_part')
     <script>
+        let course_id = $('#course-id').val();
         $.ajax({
             type: "GET",
             url: "/wxPay/getPayConfig",
             beforeSend: function () {
-                $("#pay-btn").attr({ "disabled": "disabled" });//获取到配置之前，禁止点击付款按钮
+                $("#pay-btn").attr({ "disabled": "disabled" });
             },
             success: function (data) {
-                $("#pay-btn").removeAttr("disabled");//获取到配置，打开付款按钮
-                window.wx.config(data.data);
-                console.log('wx config success, data is:' + data.data);
+                $("#pay-btn").removeAttr("disabled");
+                window.wx.config(data);
+                console.log('wx config success, data is:' + data);
                 window.wx.ready(function () {
                 });
                 window.wx.error(function (res) {
                 });
             }
         });
+
+        function startPay() {
+            $.ajax({
+                type: "POST",
+                url: "/wxPay/getPaySign",
+                data: {'course_id': course_id },
+                beforeSend: function () {
+                    $("#btnPay").attr({ "disabled": "disabled" });
+                },
+                success: function (res) {
+                    if (res.errno != 0) {
+                        alert(res.msg);
+                    } else {
+                        $("#btnPay").removeAttr("disabled");
+                        wx.chooseWXPay({
+                            timestamp: res.data.timeStamp,
+                            nonceStr: res.data.nonceStr,
+                            package: res.data.package,
+                            signType: "MD5",
+                            paySign: res.data.paysign,
+                            success: function (res) {
+                                alert('success')
+                            },
+                            cancel: function (res) {
+                                alert('failed');
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        $('#pay-btn').click(startPay)
     </script>
 @endsection
 @section('content')
+    <input type="hidden" value="{{$course->id}}" id="course-id">
     <div class="banner">
         <div class="banner-title">一起蹭課吧</div>
     </div>
@@ -54,6 +88,6 @@
             </span>
     </label>
     <div class="weui-btn-area">
-        <a class="weui-btn weui-btn_primary" href="javascript:" id="pay-btn">我要听课（￥9.9）</a>
+        <div class="weui-btn weui-btn_primary" id="pay-btn">我要听课（￥9.9）</div>
     </div>
 @endsection
