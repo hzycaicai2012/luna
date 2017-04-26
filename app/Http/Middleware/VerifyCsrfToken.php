@@ -13,6 +13,7 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         'wechat',
-        'wxPay',
+        '/wxPay',
+        '/wxPay/getPaySign',
     ];
 }

@@ -25,7 +25,7 @@ class UserService
             if (!isset($user_item)) {
                 DB::table('st_user')->insert(
                     [
-                        'open_id' => $user->id, 'nick_name' => $user->nick_name,
+                        'open_id' => $user->id, 'nick_name' => $user->nickname,
                         'name' => $user->name, 'avatar' => $user->avatar,
                         'created' => date('Y-m-d H:i:s'), 'updated' => date('Y-m-d H:i:s'),
                     ]

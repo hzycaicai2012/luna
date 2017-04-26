@@ -1,7 +1,6 @@
 @extends('layouts.base')
 @section('js_part')
     <script>
-        let course_id = $('#course-id').val();
         $.ajax({
             type: "GET",
             url: "/wxPay/getPayConfig",
@@ -20,10 +19,12 @@
         });
 
         function startPay() {
+            var course_id = $('#course-id').val();
             $.ajax({
                 type: "POST",
                 url: "/wxPay/getPaySign",
-                data: {'course_id': course_id },
+                data: {course_id: course_id },
+                dataType: 'json',
                 beforeSend: function () {
                     $("#btnPay").attr({ "disabled": "disabled" });
                 },
@@ -33,11 +34,11 @@
                     } else {
                         $("#btnPay").removeAttr("disabled");
                         wx.chooseWXPay({
-                            timestamp: res.data.timeStamp,
+                            timestamp: res.data.timestamp,
                             nonceStr: res.data.nonceStr,
                             package: res.data.package,
-                            signType: "MD5",
-                            paySign: res.data.paysign,
+                            signType: res.data.signType,
+                            paySign: res.data.paySign,
                             success: function (res) {
                                 alert('success')
                             },
@@ -49,7 +50,7 @@
                 }
             });
         }
-        $('#pay-btn').click(startPay)
+        // $('#pay-btn').click(startPay)
     </script>
 @endsection
 @section('content')
@@ -88,6 +89,6 @@
             </span>
     </label>
     <div class="weui-btn-area">
-        <div class="weui-btn weui-btn_primary" id="pay-btn">我要听课（￥9.9）</div>
+        <div class="weui-btn weui-btn_primary" onclick="startPay()" id="pay-btn">我要听课（￥9.9）</div>
     </div>
 @endsection

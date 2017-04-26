@@ -42,7 +42,7 @@ class WechatController extends Controller
     }
 
     public function oAuthCallback() {
-	$wechat = app('wechat');
+	    $wechat = app('wechat');
         $oauth = $wechat->oauth;
         $user = $oauth->user();
         // $_SESSION['wechat_user'] = $user->toArray();

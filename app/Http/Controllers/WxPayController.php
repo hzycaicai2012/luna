@@ -52,7 +52,7 @@ class WxPayController extends Controller
             'data' => [],
             'msg' => '',
         );
-        $course_id = $request->get('course_id');
+        $course_id = $request->input('course_id');
         $course_item = self::getCourseItem($course_id);
         if (!isset($course_item)) {
             $data['errno'] = -1;
@@ -61,7 +61,7 @@ class WxPayController extends Controller
         }
         $title = '一起蹭课吧课程费用';
         $detail = '课程《' . $course_item->title . '》课程费用￥9.9元';
-        $user = $wechat->oauth->user();
+        $user = $request->session()->get('wechat.oauth_user');
         $order_no = self::createOrder($user->id, $course_id, $title, $detail);
         $attributes = [
             'trade_type'     => 'JSAPI',
