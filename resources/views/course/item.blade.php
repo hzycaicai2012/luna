@@ -9,7 +9,14 @@
             },
             success: function (data) {
                 $("#pay-btn").removeAttr("disabled");
-                window.wx.config(data);
+                window.wx.config({
+                    debug: true,
+                    appId: data.appId,
+                    timestamp: (data.timestamp + ''),
+                    nonceStr: data.nonceStr,
+                    signature: data.signature,
+                    jsApiList: ["chooseWXPay"]
+                });
                 console.log('wx config success, data is:' + data);
                 window.wx.ready(function () {
                 });
