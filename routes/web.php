@@ -40,3 +40,9 @@ Route::any('/wechat/oauth_callback', [
     'as' => 'wechatCallback',
     'uses' => 'WechatController@oAuthCallback'
 ]);
+
+Route::any('/wxPay/getPayConfig', [
+    'as' => 'wxPayConfig',
+    'uses' => 'WxPayController@getPayConfig'
+]);
+

@@ -1,5 +1,6 @@
 @extends('layouts.base')
-
+@section('js_part')
+@endsection
 @section('content')
     <div class="banner">
         <div class="banner-title">一起蹭課吧</div>

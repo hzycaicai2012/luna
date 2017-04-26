@@ -1,4 +1,24 @@
 @extends('layouts.base')
+@section('js_part')
+    <script>
+        $.ajax({
+            type: "GET",
+            url: "/wxPay/getPayConfig",
+            beforeSend: function () {
+                $("#pay-btn").attr({ "disabled": "disabled" });//获取到配置之前，禁止点击付款按钮
+            },
+            success: function (data) {
+                $("#pay-btn").removeAttr("disabled");//获取到配置，打开付款按钮
+                window.wx.config(data.data);
+                console.log('wx config success, data is:' + data.data);
+                window.wx.ready(function () {
+                });
+                window.wx.error(function (res) {
+                });
+            }
+        });
+    </script>
+@endsection
 @section('content')
     <div class="banner">
         <div class="banner-title">一起蹭課吧</div>
@@ -17,7 +37,7 @@
             <section>
                 <h3>课程内容：<hr></h3>
                 <p>
-                    {{$course->description}}
+                    {!! $course->description !!}
                 </p>
             </section>
             <section>
@@ -34,6 +54,6 @@
             </span>
     </label>
     <div class="weui-btn-area">
-        <a class="weui-btn weui-btn_primary" href="javascript:" id="pay-course">我要听课（￥9.9）</a>
+        <a class="weui-btn weui-btn_primary" href="javascript:" id="pay-btn">我要听课（￥9.9）</a>
     </div>
 @endsection
