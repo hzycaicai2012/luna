@@ -44,12 +44,12 @@ Route::group(['middleware' => ['web', 'wechat.oauth', 'user.service']], function
         'as' => 'wxPaySign',
         'uses' => 'WxPayController@getPaySign'
     ]);
-
-    Route::any('/wxPay/payCallback', [
-        'as' => 'wxPayCallback',
-        'uses' => 'WxPayController@payCallback'
-    ]);
 });
+
+Route::any('/course/payCallback', [
+    'as' => 'coursePayCallback',
+    'uses' => 'CourseController@payCallback'
+]);
 
 Route::any('/wechat/serve', [
     'as' => 'wechatServe',

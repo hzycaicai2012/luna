@@ -1,29 +1,30 @@
 @extends('layouts.base')
 @section('js_part')
     <script>
-        $.ajax({
-            type: "GET",
-            url: "/wxPay/getPayConfig",
-            beforeSend: function () {
-                $("#pay-btn").attr({ "disabled": "disabled" });
-            },
-            success: function (data) {
-                $("#pay-btn").removeAttr("disabled");
-                window.wx.config({
-                    debug: true,
-                    appId: data.appId,
-                    timestamp: (data.timestamp + ''),
-                    nonceStr: data.nonceStr,
-                    signature: data.signature,
-                    jsApiList: ["chooseWXPay"]
-                });
-                console.log('wx config success, data is:' + data);
-                window.wx.ready(function () {
-                });
-                window.wx.error(function (res) {
-                });
-            }
-        });
+//        $.ajax({
+//            type: "GET",
+//            url: "/wxPay/getPayConfig",
+//            beforeSend: function () {
+//                $("#pay-btn").attr({ "disabled": "disabled" });
+//            },
+//            success: function (data) {
+//                $("#pay-btn").removeAttr("disabled");
+//                window.wx.config({
+//                    debug: true,
+//                    appId: data.appId,
+//                    timestamp: (data.timestamp + ''),
+//                    nonceStr: data.nonceStr,
+//                    signature: data.signature,
+//                    jsApiList: ["chooseWXPay"]
+//                });
+//                console.log('wx config success, data is:' + data);
+//                window.wx.ready(function () {
+//                });
+//                window.wx.error(function (res) {
+//                });
+//            }
+//        });
+        wx.config({!! $js_config !!});
 
         function startPay() {
             var course_id = $('#course-id').val();

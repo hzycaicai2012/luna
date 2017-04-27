@@ -19,30 +19,12 @@ class WxPayController extends Controller
     public function getPayConfig(Application $wechat)
     {
         $js = $wechat->js;
-        return $js->config(array('chooseWXPay'), true);
-    }
-
-    public function payCallback(Application $wechat) {
-        $response = $wechat->payment->handleNotify(function($notify, $successful){
-            $order_item = DB::table('st_order')->where('order_no', $notify->out_trade_no)->first();
-            if (!isset($order_item)) {
-                return 'Order not exist.';
-            }
-            if ($order_item->status != 0) {
-                return true;
-            }
-            if ($successful) {
-                DB::table('st_order')
-                    ->where('order_no', $notify->out_trade_no)
-                    ->update(['pay_time' => date('Y-m-d H:i:s'), 'status' => 1]);
-            } else {
-                DB::table('st_order')
-                    ->where('order_no', $notify->out_trade_no)
-                    ->update(['status' => 2]);
-            }
-            return true;
-        });
-        return $response;
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'
+            || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        $url = "$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" . '/';
+        $js->setUrl($url);
+        // $result = $js->config(array('chooseWxPay'));
+        return $js->config(array('chooseWxPay'));
     }
 
     public function getPaySign(Request $request, Application $wechat) {
@@ -70,6 +52,7 @@ class WxPayController extends Controller
             'out_trade_no'   => $order_no,
             'total_fee'       => 1,
             'openid'          =>  $user->id,
+            'notify_url'      => 'http://superfinance.com.cn/course/payCallback'
         ];
         $order = new Order($attributes);
         $result = $payment->prepare($order);
