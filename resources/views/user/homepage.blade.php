@@ -17,7 +17,7 @@
         </div>
         <div class="blank-line">
         </div>
-        <div class="weui-cell weui-cell_access">
+        <div class="weui-cell weui-cell_access weui-no-border">
             <div class="weui-cell__bd">
                 <span style="vertical-align: middle">我的钱包</span>
             </div>
@@ -29,7 +29,9 @@
             </div>
             <div class="weui-cell__ft"></div>
         </div>
-        <div class="weui-cell weui-cell_access">
+        <div class="blank-line">
+        </div>
+        <div class="weui-cell weui-cell_access weui-no-border">
             <div class="weui-cell__bd">
                 <span style="vertical-align: middle">联系客服</span>
             </div>
