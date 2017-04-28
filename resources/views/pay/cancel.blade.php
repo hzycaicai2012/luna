@@ -2,12 +2,12 @@
 @section('js_part')
     <script>
         function showDialog() {
-            $('#custom-dialog').css('diaplay', 'block');
+            $('#custom-dialog').css('display', 'block');
             $('#custom-dialog').css('opacity', '1');
         }
 
         function hideDialog() {
-            $('#custom-dialog').css('diaplay', 'none');
+            $('#custom-dialog').css('display', 'none');
             $('#custom-dialog').css('opacity', '0');
         }
     </script>
