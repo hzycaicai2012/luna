@@ -60,6 +60,26 @@ Route::group(['middleware' => ['web', 'wechat.oauth', 'user.service']], function
         'as' => 'userOrderDetail',
         'uses' => 'UserController@orderDetail'
     ])->where('order_no', '[0-9]+');
+
+    Route::any('/order/updateOrder', [
+        'as' => 'updateOrder',
+        'uses' => 'OrderController@updateOrder'
+    ]);
+
+    Route::any('/wxPay/paySuccess', [
+        'as' => 'paySuccess',
+        'uses' => 'WxPayController@showPaySuccess'
+    ]);
+
+    Route::any('/wxPay/payFail', [
+        'as' => 'payFail',
+        'uses' => 'OrderController@showPayFail'
+    ]);
+
+    Route::any('/wxPay/payCancel', [
+        'as' => 'payCancel',
+        'uses' => 'OrderController@showPayCancel'
+    ]);
 });
 
 Route::any('/course/payCallback', [

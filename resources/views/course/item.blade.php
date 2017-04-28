@@ -44,41 +44,52 @@
         }
 
         function startPay() {
-            var userInput = checkInput();
-            console.log(userInput);
-            var price = $('#course-price').val();
-            console.log(price);
-            return;
-            var course_id = $('#course-id').val();
+            var user_input = checkInput();
+            if (user_input.valid) {
+                console.log(user_input);
+                var price = $('#course-price').val();
+                console.log(price);
+                var course_id = $('#course-id').val();
+                $.ajax({
+                    type: "POST",
+                    url: "/wxPay/getPaySign",
+                    data: {course_id: course_id, uid: user_input.uid, phone: user_input.phone, price: price },
+                    dataType: 'json',
+                    beforeSend: function () {
+                        $("#btnPay").attr({ "disabled": "disabled" });
+                    },
+                    success: function (res) {
+                        if (res.errno != 0) {
+                            alert(res.msg);
+                        } else {
+                            $("#btnPay").removeAttr("disabled");
+                            wx.chooseWXPay({
+                                timestamp: res.data.timestamp,
+                                nonceStr: res.data.nonceStr,
+                                package: res.data.package,
+                                signType: res.data.signType,
+                                paySign: res.data.paySign,
+                                success: function (ret) {
+                                    if(ret.errMsg == "chooseWXPay:ok" ){
+                                    } else {
+                                    }
+                                },
+                                cancel: function (ret) {
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        }
+
+        function updateOrderStatus(order_no, status) {
             $.ajax({
                 type: "POST",
-                url: "/wxPay/getPaySign",
-                data: {course_id: course_id },
+                url: "/order/updateOrder",
+                data: {order_no: order_no, status: status},
                 dataType: 'json',
-                beforeSend: function () {
-                    $("#btnPay").attr({ "disabled": "disabled" });
-                },
                 success: function (res) {
-                    if (res.errno != 0) {
-                        alert(res.msg);
-                    } else {
-                        $("#btnPay").removeAttr("disabled");
-                        wx.chooseWXPay({
-                            timestamp: res.data.timestamp,
-                            nonceStr: res.data.nonceStr,
-                            package: res.data.package,
-                            signType: res.data.signType,
-                            paySign: res.data.paySign,
-                            success: function (ret) {
-                                if(ret.errMsg == "chooseWXPay:ok" ){
-                                } else {
-                                }
-                            },
-                            cancel: function (ret) {
-
-                            }
-                        });
-                    }
                 }
             });
         }
@@ -120,7 +131,7 @@
         <div class="weui-cell">
             <div class="weui-cell__hd"><label class="weui-label">微信号</label></div>
             <div class="weui-cell__bd">
-                <input id="user-uid" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入微信号">
+                <input id="user-uid" class="weui-input" placeholder="请输入微信号">
             </div>
         </div>
         <div class="weui-cell">

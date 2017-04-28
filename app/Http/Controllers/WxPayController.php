@@ -35,22 +35,28 @@ class WxPayController extends Controller
             'msg' => '',
         );
         $course_id = $request->input('course_id');
+        $phone = $request->input('phone');
+        $uid = $request->input('uid');
+        $price = intval($request->input('price'));
         $course_item = self::getCourseItem($course_id);
-        if (!isset($course_item)) {
+        if (!isset($course_item) || empty($phone) || empty($uid) || $price < 0) {
             $data['errno'] = -1;
             $data['msg'] = '输入参数有误';
             return $data;
         }
         $title = '一起蹭课吧课程费用';
-        $detail = '课程《' . $course_item->title . '》课程费用￥9.9元';
+        $detail = '《' . $course_item->title . '》课程费用';
         $user = $request->session()->get('wechat.oauth_user');
         $order_no = self::createOrder($user->id, $course_id, $title, $detail);
+        DB::table('st_user')
+            ->where('open_id', $user->id)
+            ->update(['uid' => $uid, 'phone' => $phone]);
         $attributes = [
             'trade_type'     => 'JSAPI',
             'body'            => $title,
             'detail'          => $detail,
             'out_trade_no'   => $order_no,
-            'total_fee'       => 1,
+            'total_fee'       => $price,
             'openid'          =>  $user->id,
             'notify_url'      => 'http://superfinance.com.cn/course/payCallback'
         ];
@@ -58,6 +64,7 @@ class WxPayController extends Controller
         $result = $payment->prepare($order);
         $data = array(
             'errno' => 0,
+            'order_no' => $order_no,
             'data' => [],
             'msg' => '',
         );
@@ -74,24 +81,61 @@ class WxPayController extends Controller
     }
 
     public function showPaySuccess(Request $request) {
-        $pay_detail = $request->get('pay_detail');
-        $callback = $request->get('callback');
         $order_no = $request->get('order_no');
-        return view('pay.success', ['pay_detail' => $pay_detail, 'callback' => $callback, 'order_no' => $order_no]);
+        $course_id = $request->get('course_id');
+        $order_item = DB::table('st_order')->where('order_no', $order_no)->first();
+        $course_item = DB::table('st_course')->where('id', $course_id)->first();
+        if (!isset($order_item)) {
+            $title = '支付异常';
+            $detail = '课程《' . $course_item->title . '》支付出现异常，订单号为：' . $order_no;
+            return view('pay.fail', ['title' => $title, 'detail' => $detail, 'course_id' => $course_id]);
+        } else {
+            $title = '支付成功';
+            $detail = '课程《' . $course_item->title . '》支付成功，课程开始前会有客服联系并邀请您进入课程直播群';
+            return view('pay.success', ['title' => $title, 'detail' => $detail, 'course_id' => $course_id]);
+        }
     }
 
     public function showPayFail(Request $request) {
-        $pay_detail = $request->get('pay_detail');
-        $callback = $request->get('callback');
         $order_no = $request->get('order_no');
-        return view('pay.fail', ['pay_detail' => $pay_detail, 'callback' => $callback, 'order_no' => $order_no]);
+        $course_id = $request->get('course_id');
+        $order_item = DB::table('st_order')->where('order_no', $order_no)->first();
+        $course_item = DB::table('st_course')->where('id', $course_id)->first();
+        if (!isset($order_item)) {
+            $title = '支付异常';
+            $detail = '课程《' . $course_item->title . '》支付出现异常';
+            return view('pay.fail', ['title' => $title, 'detail' => $detail, 'course_id' => $course_id]);
+        } else {
+            if ($order_item->status == 0) {
+                DB::table('st_order')
+                    ->where('order_no', $order_item->order_no)
+                    ->update(['status' => 2, 'pay_time' => date('Y-m-d H:i:s'), 'updated' => date('Y-m-d H:i:s')]);
+            }
+            $title = '支付失败';
+            $detail = '课程《' . $course_item->title . '》支付失败，请重新提交订单';
+            return view('pay.fail', ['title' => $title, 'detail' => $detail, 'course_id' => $course_id]);
+        }
     }
 
     public function showPayCancel(Request $request) {
-        $pay_detail = $request->get('pay_detail');
-        $callback = $request->get('callback');
         $order_no = $request->get('order_no');
-        return view('pay.cancel', ['pay_detail' => $pay_detail, 'callback' => $callback, 'order_no' => $order_no]);
+        $course_id = $request->get('course_id');
+        $order_item = DB::table('st_order')->where('order_no', $order_no)->first();
+        $course_item = DB::table('st_course')->where('id', $course_id)->first();
+        if (!isset($order_item)) {
+            $title = '支付异常';
+            $detail = '课程《' . $course_item->title . '》支付出现异常';
+            return view('pay.fail', ['title' => $title, 'detail' => $detail, 'course_id' => $course_id]);
+        } else {
+            if ($order_item->status == 0) {
+                DB::table('st_order')
+                    ->where('order_no', $order_item->order_no)
+                    ->update(['status' => 3, 'pay_time' => date('Y-m-d H:i:s'), 'updated' => date('Y-m-d H:i:s')]);
+            }
+            $title = '支付取消';
+            $detail = '课程《' . $course_item->title . '》支付已取消，请重新提交订单';
+            return view('pay.fail', ['title' => $title, 'detail' => $detail, 'course_id' => $course_id]);
+        }
     }
 
     private function createOrder($open_id, $course_id, $title, $detail) {
