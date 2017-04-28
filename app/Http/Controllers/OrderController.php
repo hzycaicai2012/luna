@@ -30,4 +30,19 @@ class OrderController extends Controller
         }
         return array('errno' => 0, 'msg' => '');
     }
+
+    public function getOrderStatus(Request $request) {
+        $course_id = $request->input('course_id');
+        $auth_user = $request->session()->get('wechat.oauth_user');
+        $user = DB::table('st_user')->where('open_id', $auth_user->id)->first();
+        $my_order = DB::table('st_order')
+            ->where('course_id', $course_id)
+            ->where('user_id', $user->id)
+            ->where('status', 1)
+            ->first();
+        if (isset($my_order)) {
+            return 1;
+        }
+        return -1;
+    }
 }

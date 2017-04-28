@@ -43,6 +43,25 @@
             return user_data;
         }
 
+        function refreshPayStatus() {
+            var course_id = $('#course-id').val();
+            $("#pay-btn").attr({ "disabled": "disabled" });
+            $.ajax({
+                type: "GET",
+                url: "/order/getOrderStatus?course_id=" + course_id,
+                success: function (res) {
+                    if (res > 0) {
+                        window.location = '/course/' + course_id;
+                    }
+                },
+                fail: function() {
+                    window.location = '/course/' + course_id;
+                }
+            });
+        }
+
+        refreshPayStatus();
+
         function startPay() {
             var user_input = checkInput();
             if (user_input.valid) {
@@ -56,13 +75,13 @@
                     data: {course_id: course_id, uid: user_input.uid, phone: user_input.phone, price: price },
                     dataType: 'json',
                     beforeSend: function () {
-                        $("#btnPay").attr({ "disabled": "disabled" });
+                        $("#pay-btn").attr({ "disabled": "disabled" });
                     },
                     success: function (res) {
                         if (res.errno != 0) {
                             alert(res.msg);
                         } else {
-                            $("#btnPay").removeAttr("disabled");
+                            $("#pay-btn").removeAttr("disabled");
                             wx.chooseWXPay({
                                 timestamp: res.data.timestamp,
                                 nonceStr: res.data.nonceStr,
@@ -81,6 +100,10 @@
                                 }
                             });
                         }
+                    },
+                    fail: function(res) {
+                        $("#pay-btn").removeAttr("disabled");
+                        alert('支付异常，请重试');
                     }
                 });
             }
