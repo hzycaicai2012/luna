@@ -52,7 +52,7 @@ class CourseController extends Controller
             $pay_status = 1;
         }
         return view('course.item',
-            ['course' => $course, 'js_config' =>  $js->config(array('chooseWxPay'), true),
+            ['course' => $course, 'js_config' =>  $js->config(array('chooseWxPay'), false),
                 'user' => $user, 'need_fill' => $need_fill, 'pay_status' => $pay_status]);
     }
 
