@@ -33,11 +33,13 @@ class UserController extends Controller
         return view('user.orders', ['user' => $user_item, 'orders' => $orders]);
     }
 
-    public function orderDetail(Request $request)
+    public function orderDetail(Request $request, $order_no)
     {
-        $order_no = $request->get('order_no');
         $order_item = DB::table('st_order')->where('order_no', $order_no)->first();
         $valid = isset($order_item) ? 1 : 0;
-        return view('user.orders', ['order' => $order_item, 'valid' => $valid]);
+        if ($valid == 1) {
+            $order_item->real_fee_str = number_format($order_item->real_fee/100, 2);
+        }
+        return view('user.order_detail', ['order' => $order_item, 'valid' => $valid]);
     }
 }

@@ -7,7 +7,7 @@
             <div class="weui-form-preview__hd">
                 <div class="weui-form-preview__item">
                     <label class="weui-form-preview__label">付款金额</label>
-                    <em class="weui-form-preview__value">¥{{number_format($order->real_fee/100, 2)}}</em>
+                    <em class="weui-form-preview__value">¥{{$order->real_fee_str}}</em>
                 </div>
             </div>
             <div class="weui-form-preview__bd">
