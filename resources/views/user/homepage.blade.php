@@ -11,7 +11,7 @@
                 <img src="{{$user->avatar}}" style="width: 50px;display: block">
             </div>
             <div class="weui-cell__bd">
-                <p>{{$user->nickname}}</p>
+                <p>{{$user->nick_name}}</p>
                 <p style="font-size: 13px;color: #888888;">摘要信息</p>
             </div>
         </div>
