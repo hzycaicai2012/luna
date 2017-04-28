@@ -17,7 +17,8 @@
         <div class="weui-msg__icon-area"><i class="weui-icon-warn weui-icon_msg"></i></div>
         <div class="weui-msg__text-area">
             <h2 class="weui-msg__title">{{$title}}</h2>
-            <p class="weui-msg__desc">{{$detail}}，如有疑问，请<a href="javascript:void(0);" onclick="showDialog()">联系客服</a></p>
+            <p class="weui-msg__desc">{{$detail}}</p>
+            <p class="weui-msg__desc">如有疑问，请<a href="javascript:void(0);" onclick="showDialog()">联系客服</a></p>
         </div>
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
@@ -29,7 +30,7 @@
         <div class="weui-mask"></div>
         <div class="weui-dialog">
             <div class="weui-dialog__bd">
-                <p>长按如下二维码识别或者手动添加客户微信（hzy10080927）</p>
+                <p style="text-align: left;margin-bottom: 10px;">长按如下二维码识别或者手动添加客户微信（hzy10080927）</p>
                 <img src="/img/qr_code_hzy.jpg" style="width:100%; height: 100%;"/>
             </div>
             <div class="weui-dialog__ft">
