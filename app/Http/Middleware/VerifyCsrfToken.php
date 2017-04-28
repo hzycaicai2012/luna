@@ -17,5 +17,6 @@ class VerifyCsrfToken extends BaseVerifier
         '/wxPay/getPaySign',
         '/course/payCallback',
         '/order/updateOrder',
+        '/teacher/submitApply',
     ];
 }

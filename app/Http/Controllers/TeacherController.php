@@ -28,6 +28,22 @@ class TeacherController extends Controller
         }
     }
 
-    public function submitApply() {
+    public function submitApply(Request $request) {
+        $card_id = $request->input('card_id');
+        $name = $request->input('name');
+        $phone = $request->input('phone');
+        $uid = $request->input('uid');
+        $skill = $request->input('skill');
+        $auth_user = $request->session()->get('wechat.oauth_user');
+        $user = DB::table('st_user')->where('open_id', $auth_user->id)->first();
+        DB::table('st_apply')->insert(
+            [
+                'card_id' => $card_id, 'name' => $name,
+                'phone' => $phone, 'uid' => $uid,
+                'user_id' => $user->id, 'skill' => $skill,
+                'created' => date('Y-m-d H:i:s'), 'updated' => date('Y-m-d H:i:s'),
+            ]
+        );
+        return array('errno' => 0);
     }
 }

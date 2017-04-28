@@ -87,7 +87,7 @@
             </div>
         </div>
     </div>
-    <div class="weui-cells__title">专业方向</div>
+    <div class="weui-cells__title">专业技能信息</div>
     <div class="weui-cells weui-cells_form">
         <div class="weui-cell">
             <div class="weui-cell__hd"><label class="weui-label">擅长领域</label></div>
@@ -96,7 +96,7 @@
             </div>
         </div>
     </div>
-    <div class="footer-btns">
+    <div class="footer-btns" style="margin-top:15px;">
         <div id="submit-btn" onclick="submitApply()" class="weui-btn weui-btn_primary">提交申请</div>
     </div>
 @endsection
