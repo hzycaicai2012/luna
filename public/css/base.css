@@ -57,7 +57,7 @@ hr {
     -webkit-box-align: center;
     -webkit-align-items: center;
     align-items: center;
-    background: #e5e5e5;
+    background: #f9f9f9;
 }
 
 .weui-cells .blank-line:before {
@@ -75,6 +75,6 @@ hr {
     z-index: 2;
 }
 
-.weui-cells .weui-no-border {
+.weui-cells .weui-no-border:before {
     border: none;
 }
