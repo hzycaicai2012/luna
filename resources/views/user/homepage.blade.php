@@ -13,7 +13,7 @@
 @endsection
 @section('content')
     <div class="banner">
-        <div class="banner-title">一起蹭課吧</div>
+        <div class="banner-title">一起蹭课吧</div>
     </div>
     <div class="weui-cells">
         <div class="weui-cell">
@@ -52,7 +52,7 @@
         <div class="weui-mask"></div>
         <div class="weui-dialog">
             <div class="weui-dialog__bd">
-                <p>长按如下二维码识别或者手动添加客户微信（hzy10080927）</p>
+                <p style="text-align: left;margin-bottom: 10px;">长按如下二维码识别或者手动添加客户微信（hzy10080927）</p>
                 <img src="/img/qr_code_hzy.jpg" style="width:100%; height: 100%;"/>
             </div>
             <div class="weui-dialog__ft">
