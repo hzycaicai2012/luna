@@ -26,7 +26,29 @@
 //        });
         wx.config({!! $js_config !!});
 
+        function checkInput() {
+            var phone = $('#user-phone').val();
+            var uid = $('#user-uid').val();
+            var agree = $('#user-agree').prop('checked');
+            var user_data = {valid: false, phone : phone, uid: uid, agree: agree};
+            if (phone == null || phone == '') {
+                alert('请填写手机号');
+            } else if (uid == null || uid == '') {
+                alert('请填写微信号');
+            } else if (!agree) {
+                alert('请先同意用户协议');
+            } else {
+                user_data['valid'] = true;
+            }
+            return user_data;
+        }
+
         function startPay() {
+            var userInput = checkInput();
+            console.log(userInput);
+            var price = $('#course-price').val();
+            console.log(price);
+            return;
             var course_id = $('#course-id').val();
             $.ajax({
                 type: "POST",
@@ -66,7 +88,7 @@
 @section('content')
     <input type="hidden" value="{{$course->id}}" id="course-id">
     <div class="banner">
-        <div class="banner-title">一起蹭課吧</div>
+        <div class="banner-title">一起蹭课吧</div>
     </div>
     <article class="weui-article">
         <h1>{{$course->title}}</h1>
@@ -92,13 +114,36 @@
             </section>
         </section>
     </article>
+    @if ($need_fill)
+    <div class="weui-cells__title">请先填写如下信息，方便客服与您联系</div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">微信号</label></div>
+            <div class="weui-cell__bd">
+                <input id="user-uid" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入微信号">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">手机号</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input id="user-phone" class="weui-input" type="tel" placeholder="请输入手机号">
+            </div>
+        </div>
+    </div>
+    @else
+        <input id="user-phone" class="weui-input" type="hidden" value="{{$user->phone}}">
+        <input id="user-uid" class="weui-input" type="hidden" value="{{$user->uid}}">
+    @endif
     <label for="weuiAgree" class="weui-agree">
-        <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
+        <input id="user-agree" type="checkbox" class="weui-agree__checkbox">
             <span class="weui-agree__text">
                 阅读并同意<a href="javascript:void(0);">《用户协议》</a>
             </span>
     </label>
+    <input type="hidden" id="course-price" value="{{$course->price}}">
     <div class="weui-btn-area">
-        <div class="weui-btn weui-btn_primary" onclick="startPay()" id="pay-btn">我要听课（￥9.9）</div>
+        <div class="weui-btn weui-btn_primary" onclick="startPay()" id="pay-btn">我要听课（￥{{$course->show_price}}）</div>
     </div>
 @endsection

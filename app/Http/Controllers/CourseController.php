@@ -32,7 +32,7 @@ class CourseController extends Controller
     }
 
     public function item(Request $request, Application $wechat, $id) {
-        $user = $request->session()->get('wechat.oauth_user');
+        $auth_user = $request->session()->get('wechat.oauth_user');
         $js = $wechat->js;
         $course = DB::table('st_course')
             ->join('st_teacher', 'st_course.teacher_id', '=', 'st_teacher.id')
@@ -40,7 +40,11 @@ class CourseController extends Controller
             ->select('st_course.*', 'st_teacher.name as teacher_name',
                 'st_teacher.description as teacher_desc', 'st_teacher.skill')
             ->first();
-        return view('course.item', ['course' => $course, 'js_config' =>  $js->config(array('chooseWxPay'), true)]);
+        $user = DB::table('st_user')->where('open_id', $auth_user->id)->first();
+        $need_fill = (empty($user->phone) || empty($user->uid));
+        return view('course.item',
+            ['course' => $course, 'js_config' =>  $js->config(array('chooseWxPay'), true),
+                'user' => $user, 'need_fill' => $need_fill]);
     }
 
     public function payCallback(Application $wechat) {
