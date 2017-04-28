@@ -128,27 +128,43 @@
             </section>
         </section>
     </article>
-    @if ($need_fill)
     <div class="weui-cells__title">请先填写如下信息，方便客服与您联系</div>
-    <div class="weui-cells weui-cells_form">
-        <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label">微信号</label></div>
-            <div class="weui-cell__bd">
-                <input id="user-uid" class="weui-input" placeholder="请输入微信号">
+    @if ($need_fill)
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">微信号</label></div>
+                <div class="weui-cell__bd">
+                    <input id="user-uid" class="weui-input" placeholder="请输入微信号">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">手机号</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input id="user-phone" class="weui-input" type="tel" placeholder="请输入手机号">
+                </div>
             </div>
         </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label class="weui-label">手机号</label>
-            </div>
-            <div class="weui-cell__bd">
-                <input id="user-phone" class="weui-input" type="tel" placeholder="请输入手机号">
-            </div>
-        </div>
-    </div>
     @else
-        <input id="user-phone" class="weui-input" type="hidden" value="{{$user->phone}}">
-        <input id="user-uid" class="weui-input" type="hidden" value="{{$user->uid}}">
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">微信号</label></div>
+                <div class="weui-cell__bd">
+                    <input id="user-uid" class="weui-input" placeholder="请输入微信号" value="{{$user->phone}}">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">手机号</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input id="user-phone" class="weui-input" type="tel" placeholder="请输入手机号" value="{{$user->uid}}">
+                </div>
+            </div>
+        </div>
+        {{--<input id="user-phone" class="weui-input" type="hidden" value="{{$user->phone}}">--}}
+        {{--<input id="user-uid" class="weui-input" type="hidden" value="{{$user->uid}}">--}}
     @endif
     <label for="weuiAgree" class="weui-agree">
         <input id="user-agree" type="checkbox" class="weui-agree__checkbox">
@@ -157,7 +173,13 @@
             </span>
     </label>
     <input type="hidden" id="course-price" value="{{$course->price}}">
-    <div class="weui-btn-area">
-        <div class="weui-btn weui-btn_primary" onclick="startPay()" id="pay-btn">我要听课（￥{{$course->show_price}}）</div>
-    </div>
+    @if ($pay_status == 1)
+        <div class="weui-btn-area">
+            <div class="weui-btn weui-btn_primary" disabled="disabled" id="pay-btn">已报名成功</div>
+        </div>
+    @else
+        <div class="weui-btn-area">
+            <div class="weui-btn weui-btn_primary" onclick="startPay()" id="pay-btn">我要听课（￥{{$course->show_price}}）</div>
+        </div>
+    @endif
 @endsection

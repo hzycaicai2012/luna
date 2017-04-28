@@ -42,9 +42,18 @@ class CourseController extends Controller
             ->first();
         $user = DB::table('st_user')->where('open_id', $auth_user->id)->first();
         $need_fill = (empty($user->phone) || empty($user->uid));
+        $my_order = DB::table('st_order')
+            ->where('course_id', $course->id)
+            ->where('user_id', $user->id)
+            ->where('status', 1)
+            ->first();
+        $pay_status = 0;
+        if (isset($my_order)) {
+            $pay_status = 1;
+        }
         return view('course.item',
             ['course' => $course, 'js_config' =>  $js->config(array('chooseWxPay'), true),
-                'user' => $user, 'need_fill' => $need_fill]);
+                'user' => $user, 'need_fill' => $need_fill, 'pay_status' => $pay_status]);
     }
 
     public function payCallback(Application $wechat) {
