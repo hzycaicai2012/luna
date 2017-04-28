@@ -23,12 +23,12 @@
             </div>
             <div class="weui-cell__ft">0.0</div>
         </div>
-        <div class="weui-cell weui-cell_access">
+        <a class="weui-cell weui-cell_access" href="/user/orders">
             <div class="weui-cell__bd">
                 <span style="vertical-align: middle">订单查询</span>
             </div>
             <div class="weui-cell__ft"></div>
-        </div>
+        </a>
         <div class="blank-line">
         </div>
         <div class="weui-cell weui-cell_access weui-no-border">

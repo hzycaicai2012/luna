@@ -49,6 +49,11 @@ Route::group(['middleware' => ['web', 'wechat.oauth', 'user.service']], function
         'as' => 'userHome',
         'uses' => 'UserController@homepage'
     ]);
+
+    Route::any('/user/orders', [
+        'as' => 'userOrderList',
+        'uses' => 'UserController@orderList'
+    ]);
 });
 
 Route::any('/course/payCallback', [
