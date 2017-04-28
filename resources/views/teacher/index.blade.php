@@ -22,6 +22,6 @@
     <div>
     </div>
     <div class="footer-btns">
-        <a href="/teacher/submit" class="weui-btn weui-btn_primary">我要讲课</a>
+        <a href="/teacher/apply" class="weui-btn weui-btn_primary">我要讲课</a>
     </div>
 @endsection

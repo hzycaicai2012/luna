@@ -11,4 +11,21 @@ class TeacherController extends Controller
         $user = $request->session()->get('wechat.oauth_user');
         return view('teacher.index', ['user' => $user]);
     }
+
+    public function apply(Request $request) {
+        $auth_user = $request->session()->get('wechat.oauth_user');
+        $user = DB::table('st_user')->where('open_id', $auth_user->id)->first();
+        $apply = DB::table('st_apply')
+            ->where('user_id', $user->id)
+            ->where('status', '<>', 2)
+            ->first();
+        if (isset($apply)) {
+            return redirect()->route('userHome');
+        } else {
+            return view('teacher.apply');
+        }
+    }
+
+    public function submitApply() {
+    }
 }

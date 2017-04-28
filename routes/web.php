@@ -80,6 +80,16 @@ Route::group(['middleware' => ['web', 'wechat.oauth', 'user.service']], function
         'as' => 'payCancel',
         'uses' => 'WxPayController@showPayCancel'
     ]);
+
+    Route::any('/teacher/apply', [
+        'as' => 'teacherApply',
+        'uses' => 'TeacherController@apply'
+    ]);
+
+    Route::any('/teacher/submitApply', [
+        'as' => 'submitApply',
+        'uses' => 'TeacherController@submitApply'
+    ]);
 });
 
 Route::any('/course/payCallback', [
