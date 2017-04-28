@@ -32,7 +32,7 @@
                 <img src="/img/qr_code_hzy.jpg" style="width:100%; height: 100%;"/>
             </div>
             <div class="weui-dialog__ft">
-                <div id="close-dialog-btn" onclick="closeDialog()" class="weui-dialog__btn weui-dialog__btn_primary">好的</div>
+                <div id="close-dialog-btn" onclick="hideDialog()" class="weui-dialog__btn weui-dialog__btn_primary">好的</div>
             </div>
         </div>
     </div>
