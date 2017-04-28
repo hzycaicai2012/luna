@@ -32,4 +32,12 @@ class UserController extends Controller
             ->where('st_order.user_id', $user_item->id)->get();
         return view('user.orders', ['user' => $user_item, 'orders' => $orders]);
     }
+
+    public function orderDetail(Request $request)
+    {
+        $order_no = $request->get('order_no');
+        $order_item = DB::table('st_order')->where('order_no', $order_no)->first();
+        $valid = isset($order_item) ? 1 : 0;
+        return view('user.orders', ['order' => $order_item, 'valid' => $valid]);
+    }
 }

@@ -44,6 +44,10 @@ hr {
     font-size: 13px;
 }
 
+.weui-panel .small-content {
+    font-size: 13px;
+}
+
 .weui-article .bold-content {
     font-weight: 600;
 }

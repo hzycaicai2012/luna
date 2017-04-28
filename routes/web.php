@@ -25,6 +25,7 @@ Route::group(['middleware' => ['web', 'wechat.oauth', 'user.service']], function
         'as' => 'courseList',
         'uses' => 'CourseController@courseList'
     ]);
+
     Route::get('/course/{id}', [
         'as' => 'courseItem',
         'uses' => 'CourseController@item'
@@ -54,6 +55,11 @@ Route::group(['middleware' => ['web', 'wechat.oauth', 'user.service']], function
         'as' => 'userOrderList',
         'uses' => 'UserController@orderList'
     ]);
+
+    Route::get('/user/order/{order_no}', [
+        'as' => 'userOrderDetail',
+        'uses' => 'UserController@orderDetail'
+    ])->where('order_no', '[0-9]+');
 });
 
 Route::any('/course/payCallback', [
