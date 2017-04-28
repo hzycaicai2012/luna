@@ -73,6 +73,27 @@ class WxPayController extends Controller
         return $data;
     }
 
+    public function showPaySuccess(Request $request) {
+        $pay_detail = $request->get('pay_detail');
+        $callback = $request->get('callback');
+        $order_no = $request->get('order_no');
+        return view('pay.success', ['pay_detail' => $pay_detail, 'callback' => $callback, 'order_no' => $order_no]);
+    }
+
+    public function showPayFail(Request $request) {
+        $pay_detail = $request->get('pay_detail');
+        $callback = $request->get('callback');
+        $order_no = $request->get('order_no');
+        return view('pay.fail', ['pay_detail' => $pay_detail, 'callback' => $callback, 'order_no' => $order_no]);
+    }
+
+    public function showPayCancel(Request $request) {
+        $pay_detail = $request->get('pay_detail');
+        $callback = $request->get('callback');
+        $order_no = $request->get('order_no');
+        return view('pay.cancel', ['pay_detail' => $pay_detail, 'callback' => $callback, 'order_no' => $order_no]);
+    }
+
     private function createOrder($open_id, $course_id, $title, $detail) {
         $user_item = DB::table('st_user')->where('open_id', $open_id)->first();
         if (!isset($user_item)) {

@@ -44,6 +44,11 @@ Route::group(['middleware' => ['web', 'wechat.oauth', 'user.service']], function
         'as' => 'wxPaySign',
         'uses' => 'WxPayController@getPaySign'
     ]);
+
+    Route::any('/user/homepage', [
+        'as' => 'userHome',
+        'uses' => 'UserController@homepage'
+    ]);
 });
 
 Route::any('/course/payCallback', [

@@ -15,7 +15,7 @@
                     </div>
                     <div class="weui-media-box__bd">
                         <h4 class="weui-media-box__title">{{$course->title}}</h4>
-                        <p class="weui-media-box__desc">{{$course->description}}</p>
+                        <p class="weui-media-box__desc">{{$course->outline}}</p>
                     </div>
                 </a>
             @endforeach

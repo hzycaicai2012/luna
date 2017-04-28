@@ -47,11 +47,13 @@
                             package: res.data.package,
                             signType: res.data.signType,
                             paySign: res.data.paySign,
-                            success: function (res) {
-                                alert('success')
+                            success: function (ret) {
+                                if(ret.errMsg == "chooseWXPay:ok" ){
+                                } else {
+                                }
                             },
-                            cancel: function (res) {
-                                alert('failed');
+                            cancel: function (ret) {
+
                             }
                         });
                     }
