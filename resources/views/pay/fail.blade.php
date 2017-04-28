@@ -17,7 +17,7 @@
         <div class="weui-msg__icon-area"><i class="weui-icon-warn weui-icon_msg"></i></div>
         <div class="weui-msg__text-area">
             <h2 class="weui-msg__title">{{$title}}</h2>
-            <p class="weui-msg__desc">{{$pay_detail}}，如有疑问，请<a href="javascript:void(0);" onclick="showDialog()">联系客服</a></p>
+            <p class="weui-msg__desc">{{$detail}}，如有疑问，请<a href="javascript:void(0);" onclick="showDialog()">联系客服</a></p>
         </div>
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">

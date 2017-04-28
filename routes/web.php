@@ -73,12 +73,12 @@ Route::group(['middleware' => ['web', 'wechat.oauth', 'user.service']], function
 
     Route::any('/wxPay/payFail', [
         'as' => 'payFail',
-        'uses' => 'OrderController@showPayFail'
+        'uses' => 'WxPayController@showPayFail'
     ]);
 
     Route::any('/wxPay/payCancel', [
         'as' => 'payCancel',
-        'uses' => 'OrderController@showPayCancel'
+        'uses' => 'WxPayController@showPayCancel'
     ]);
 });
 

@@ -16,12 +16,12 @@
     <div class="weui-msg">
         <div class="weui-msg__icon-area"><i class="weui-icon-warn weui-icon_msg"></i></div>
         <div class="weui-msg__text-area">
-            <h2 class="weui-msg__title">支付取消</h2>
-            <p class="weui-msg__desc">{{$pay_detail}}，如有疑问，请<a href="javascript:void(0);" onclick="showDialog()">联系客服</a></p>
+            <h2 class="weui-msg__title">{{$title}}</h2>
+            <p class="weui-msg__desc">{{$detail}}，如有疑问，请<a href="javascript:void(0);" onclick="showDialog()">联系客服</a></p>
         </div>
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
-                <a href="{!! $callback !!}" class="weui-btn weui-btn_primary">返回</a>
+                <a href="/course/{{$course_id}}" class="weui-btn weui-btn_primary">返回</a>
             </p>
         </div>
     </div>
