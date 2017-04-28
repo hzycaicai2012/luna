@@ -71,10 +71,13 @@
                                 paySign: res.data.paySign,
                                 success: function (ret) {
                                     if(ret.errMsg == "chooseWXPay:ok" ){
+                                        window.location.href = '/wxPay/paySuccess?order_no=' + res.order_no + '&course_id=' + course_id;
                                     } else {
+                                        window.location.href = '/wxPay/payFail?order_no=' + res.order_no + '&course_id=' + course_id;
                                     }
                                 },
                                 cancel: function (ret) {
+                                    window.location.href = '/wxPay/payCancel?order_no=' + res.order_no + '&course_id=' + course_id;
                                 }
                             });
                         }
