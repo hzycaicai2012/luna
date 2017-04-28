@@ -151,7 +151,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">微信号</label></div>
                 <div class="weui-cell__bd">
-                    <input id="user-uid" class="weui-input" placeholder="请输入微信号" value="{{$user->phone}}">
+                    <input id="user-uid" class="weui-input" placeholder="请输入微信号" value="{{$user->uid}}">
                 </div>
             </div>
             <div class="weui-cell">
@@ -159,7 +159,7 @@
                     <label class="weui-label">手机号</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="user-phone" class="weui-input" type="tel" placeholder="请输入手机号" value="{{$user->uid}}">
+                    <input id="user-phone" class="weui-input" type="tel" placeholder="请输入手机号" value="{{$user->phone}}">
                 </div>
             </div>
         </div>
