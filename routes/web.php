@@ -102,3 +102,8 @@ Route::any('/wechat/serve', [
     'uses' => 'WechatController@serve'
 ]);
 
+Route::get('/auth/login', [
+    'as' => 'authLogin',
+    'uses' => 'AuthController@login'
+]);
+
